@@ -1,8 +1,12 @@
-# 🏆 Awwwards-Evaluated Persistent Todo System
+# 🏆 MCP Awwwards-Evaluated Todo System
 
-A professional todo management system that applies systematic design principles and maintains award-winning interface standards across conversations.
+**Professional MCP server for Claude Desktop** with systematic design principles and award-winning interface standards.
+
+An MCP (Model Context Protocol) server for Claude Desktop that provides professional todo management with systematic design principles and maintains award-winning interface standards across conversations.
 
 ## 🎯 Overview
+
+This **MCP server** integrates seamlessly with **Claude Desktop** to provide intelligent todo management.
 
 This system combines foundational design principles with modern evaluation criteria to create a todo interface that meets professional standards:
 
@@ -42,7 +46,31 @@ Todos appear automatically when:
 - Partial task completion
 - Topic shifts in conversation
 
-## 🚀 Quick Start
+## 🚀 Installation & Setup
+
+### For Claude Desktop (MCP)
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/brookcs3/mcp-awwwards-todo-system.git
+cd mcp-awwwards-todo-system
+```
+
+2. **Add to your Claude Desktop MCP configuration:**
+```json
+{
+  "mcpServers": {
+    "mcp-awwwards-todo": {
+      "command": "node",
+      "args": ["path/to/mcp-awwwards-todo-system/AwwwardsTodoSystem.js"]
+    }
+  }
+}
+```
+
+3. **Restart Claude Desktop**
+
+### Standalone Usage
 
 ### Basic Usage
 

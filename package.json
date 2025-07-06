@@ -1,7 +1,7 @@
 {
-  "name": "awwwards-todo-system",
+  "name": "mcp-awwwards-todo-system",
   "version": "1.0.0",
-  "description": "A professional todo management system applying Swiss Grid principles, Typography hierarchy, and Awwwards evaluation criteria with cross-chat persistence",
+  "description": "🏆 MCP server for Claude Desktop: Professional todo management applying Swiss Grid principles, Typography hierarchy, and Awwwards evaluation criteria with cross-chat persistence",
   "main": "AwwwardsTodoSystem.js",
   "scripts": {
     "demo": "node demo.js",
@@ -18,18 +18,21 @@
     "ellen-lupton",
     "persistent",
     "evaluation",
-    "professional-design"
+    "professional-design",
+    "claude-desktop",
+    "mcp-server",
+    "model-context-protocol"
   ],
-  "author": "Claude AI System",
+  "author": "Claude AI System for MCP",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cameronbrooks/awwwards-todo-system.git"
+    "url": "https://github.com/brookcs3/mcp-awwwards-todo-system.git"
   },
   "bugs": {
-    "url": "https://github.com/cameronbrooks/awwwards-todo-system/issues"
+    "url": "https://github.com/brookcs3/mcp-awwwards-todo-system/issues"
   },
-  "homepage": "https://github.com/cameronbrooks/awwwards-todo-system#readme",
+  "homepage": "https://github.com/brookcs3/mcp-awwwards-todo-system#readme",
   "engines": {
     "node": ">=14.0.0"
   },
