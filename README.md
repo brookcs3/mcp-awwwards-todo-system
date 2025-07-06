@@ -83,10 +83,11 @@ Todos appear automatically when:
 
 ### Quick Install (Recommended)
 
-1. **Clone and install:**
+1. **Clone the repository to your MCP server directory:**
 ```bash
-git clone https://github.com/brookcs3/mcp-awwwards-todo-system.git
-cd mcp-awwwards-todo-system
+cd /Users/cameronbrooks/Server/MCP
+git clone https://github.com/brookcs3/mcp-awwwards-todo-system.git mcp-awwwards-todo
+cd mcp-awwwards-todo
 ./install.sh
 ```
 
@@ -98,8 +99,9 @@ cd mcp-awwwards-todo-system
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/brookcs3/mcp-awwwards-todo-system.git
-cd mcp-awwwards-todo-system
+cd /Users/cameronbrooks/Server/MCP
+git clone https://github.com/brookcs3/mcp-awwwards-todo-system.git mcp-awwwards-todo
+cd mcp-awwwards-todo
 ```
 
 2. **Add to your Claude Desktop MCP configuration:**
@@ -111,7 +113,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
   "mcpServers": {
     "mcp-awwwards-todo": {
       "command": "node",
-      "args": ["/full/path/to/mcp-awwwards-todo-system/mcp-server.js"]
+      "args": ["/Users/cameronbrooks/Server/MCP/mcp-awwwards-todo/mcp-server.js"]
     }
   }
 }

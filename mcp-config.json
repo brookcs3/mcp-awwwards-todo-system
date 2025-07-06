@@ -45,8 +45,8 @@
       "config_example": {
         "mcpServers": {
           "mcp-awwwards-todo": {
-            "command": "node",
-            "args": ["path/to/mcp-awwwards-todo-system/mcp-server.js"]
+          "command": "node",
+          "args": ["/Users/cameronbrooks/Server/MCP/mcp-awwwards-todo/mcp-server.js"]
           }
         }
       }

@@ -19,6 +19,7 @@ echo "✅ Node.js found: $(node --version)"
 # Get current directory
 INSTALL_DIR="$(pwd)"
 echo "📁 Installation directory: $INSTALL_DIR"
+echo "🖥️  Server location: /Users/cameronbrooks/Server/MCP/mcp-awwwards-todo"
 
 # Check if mcp-server.js exists
 if [ ! -f "mcp-server.js" ]; then
