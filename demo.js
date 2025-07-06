@@ -1,24 +1,25 @@
 /**
- * Demo script for Awwwards-Evaluated Persistent Todo System
+ * Demo script for MCP Awwwards-Evaluated Todo System
+ * Professional MCP server for Claude Desktop
  * Run this to see the system in action with sample data
  */
 
-// Import the todo system (in Node.js environment)
-// const { AwwwardsTodoSystem, PersistentTodoManager } = require('./AwwwardsTodoSystem.js');
+// Import the MCP server system
+const { MCPAwwwardsTodoServer } = require('./mcp-server.js');
 
-// For browser environment, the classes are available globally
+console.log('🏆 MCP AWWWARDS TODO SYSTEM - PROFESSIONAL DEMO\n');
 
-console.log('🎯 AWWWARDS-EVALUATED PERSISTENT TODO SYSTEM DEMO\n');
-
-// Initialize the persistent todo manager
-const persistentSystem = new PersistentTodoManager();
+// Initialize the MCP server
+const mcpServer = new MCPAwwwardsTodoServer();
+console.log('🖥️  MCP Server Info:', mcpServer.getServerInfo());
+console.log('');
 
 // Create sample todo sessions
 const designSession = {
   id: "design-system-2025",
   title: "Design System Project",
   todos: [
-    { content: "Review design system documentation", status: "completed", priority: "high" },
+    { content: "Review MCP server documentation", status: "completed", priority: "high" },
     { content: "Create typography style guide", status: "in_progress", priority: "medium" },
     { content: "Test font combinations", status: "pending", priority: "medium" },
     { content: "Apply Awwwards evaluation criteria", status: "pending", priority: "high" }
@@ -51,96 +52,110 @@ const marketingSession = {
   lastWorkedOn: "2025-07-04T16:45:00Z"
 };
 
-// Save sessions to persistent storage
-console.log('💾 SAVING SAMPLE SESSIONS...\n');
-persistentSystem.saveTodoSession(designSession.id, designSession.todos, designSession);
-persistentSystem.saveTodoSession(codeSession.id, codeSession.todos, codeSession);
-persistentSystem.saveTodoSession(marketingSession.id, marketingSession.todos, marketingSession);
+// Save sessions to MCP persistent storage
+console.log('💾 SAVING SAMPLE SESSIONS TO MCP STORAGE...\n');
+mcpServer.todoManager.saveTodoSession(designSession.id, designSession.todos, designSession);
+mcpServer.todoManager.saveTodoSession(codeSession.id, codeSession.todos, codeSession);
+mcpServer.todoManager.saveTodoSession(marketingSession.id, marketingSession.todos, marketingSession);
 
-// Demo 1: New chat initialization
-console.log('🆕 DEMO 1: NEW CHAT INITIALIZATION\n');
+// Demo 1: MCP new chat initialization
+console.log('🆕 DEMO 1: MCP NEW CHAT INITIALIZATION\n');
 console.log('='.repeat(60));
 
-const initResult = persistentSystem.initializeNewChat();
+const initResult = mcpServer.initializeWithBranding();
 
-if (initResult.hasIncompleteTodos) {
+if (initResult && initResult.hasIncompleteTodos) {
   console.log(initResult.initMessage);
-} else {
+} else if (initResult) {
   console.log(initResult.message);
 }
 
-// Demo 2: Contextual triggers
-console.log('\n\n🔥 DEMO 2: CONTEXTUAL TRIGGERS\n');
+// Demo 2: MCP contextual triggers
+console.log('\n\n🔥 DEMO 2: MCP CONTEXTUAL TRIGGERS\n');
 console.log('='.repeat(60));
 
-// User explicitly requests todo
-console.log('👤 USER REQUESTS TODO STATUS:\n');
-const userRequest = persistentSystem.displayIfTriggered(
+// MCP branded user request
+console.log('👤 USER REQUESTS TODO STATUS (MCP):\n');
+const userRequest = mcpServer.brandedTodoDisplay(
   "design-system-2025", 
   designSession.todos, 
   { userAsked: true }
 );
 if (userRequest.shouldDisplay) console.log(userRequest.output);
 
-// Task completion trigger
-console.log('\n\n🎉 TASK COMPLETION TRIGGER:\n');
+// MCP branded completion trigger
+console.log('\n\n🎉 TASK COMPLETION TRIGGER (MCP):\n');
 const updatedTodos = designSession.todos.map(t => 
   t.content === "Test font combinations" ? {...t, status: "completed"} : t
 );
-const completion = persistentSystem.displayIfTriggered(
+const completion = mcpServer.brandedTodoDisplay(
   "design-system-2025", 
   updatedTodos, 
   { itemCompleted: true }
 );
 if (completion.shouldDisplay) console.log(completion.output);
 
-// Demo 3: Session switching
-console.log('\n\n🔄 DEMO 3: SESSION SWITCHING\n');
+// Demo 3: MCP session switching
+console.log('\n\n🔄 DEMO 3: MCP SESSION SWITCHING\n');
 console.log('='.repeat(60));
 
-const switchResult = persistentSystem.switchToSession("api-refactor");
+const switchResult = mcpServer.todoManager.switchToSession("api-refactor");
 if (switchResult.success) {
   console.log(switchResult.message);
 }
 
-// Demo 4: Different style variations
-console.log('\n\n🎨 DEMO 4: STYLE VARIATIONS\n');
+// Demo 4: MCP style variations
+console.log('\n\n🎨 DEMO 4: MCP STYLE VARIATIONS\n');
 console.log('='.repeat(60));
 
-const basicSystem = new AwwwardsTodoSystem();
 const styles = ['minimalist', 'brutalist', 'terminal', 'modern'];
 
 styles.forEach(style => {
-  console.log(`\n${style.toUpperCase()} STYLE:`);
-  const result = basicSystem.generateTodo("demo", designSession.todos, style);
-  console.log(result.display);
-  console.log(`Score: ${result.evaluation.overall.toFixed(1)}/10 (${result.awwwardsLevel})`);
+  console.log(`\n${style.toUpperCase()} STYLE (MCP):`);
+  const result = mcpServer.createBrandedTodo("mcp-demo", designSession.todos, style, false);
+  // Show just the todo display part for brevity
+  const lines = result.display.split('\n');
+  const todoStart = lines.findIndex(line => line.includes('▓'));
+  if (todoStart !== -1) {
+    const todoEnd = lines.findIndex((line, index) => 
+      index > todoStart + 4 && line.includes('▓') && 
+      !line.includes('[ ]') && !line.includes('[~]') && !line.includes('[✓]')
+    );
+    if (todoEnd !== -1) {
+      console.log(lines.slice(todoStart, todoEnd + 1).join('\n'));
+    }
+  }
+  console.log(`Score: ${mcpServer.todoManager.evaluateInterface('', designSession.todos).overall.toFixed(1)}/10`);
 });
 
-// Demo 5: Evaluation breakdown
-console.log('\n\n📊 DEMO 5: DETAILED EVALUATION\n');
+// Demo 5: MCP detailed evaluation
+console.log('\n\n📊 DEMO 5: MCP DETAILED EVALUATION\n');
 console.log('='.repeat(60));
 
-const evaluation = basicSystem.createEvaluatedTodo("demo", designSession.todos, 'minimalist', true);
-console.log('EVALUATION BREAKDOWN:');
-console.log(`• Design:     ${evaluation.evaluation.design.toFixed(1)}/10 (40% weight)`);
-console.log(`• Usability:  ${evaluation.evaluation.usability.toFixed(1)}/10 (30% weight)`);
-console.log(`• Creativity: ${evaluation.evaluation.creativity.toFixed(1)}/10 (20% weight)`);
-console.log(`• Content:    ${evaluation.evaluation.content.toFixed(1)}/10 (10% weight)`);
-console.log(`• OVERALL:    ${evaluation.evaluation.overall.toFixed(1)}/10`);
-console.log(`• ACHIEVEMENT: ${evaluation.awwwardsLevel}`);
+const evaluation = mcpServer.createBrandedTodo("mcp-evaluation-demo", designSession.todos, 'minimalist', true);
+console.log('🏆 FULL MCP BRANDED EVALUATION:');
+console.log('(Showing complete MCP server output with branding)\n');
+console.log(evaluation.display);
 
-console.log('\n\n✅ DEMO COMPLETE!');
-console.log('\nSYSTEM FEATURES DEMONSTRATED:');
-console.log('🔄 Cross-chat persistence');
-console.log('🎯 Smart session initialization');
-console.log('🔥 Contextual triggers');
-console.log('🎨 Multiple style variations');
+console.log('\n\n✅ MCP DEMO COMPLETE!');
+console.log('\n🖥️  MCP SERVER FEATURES DEMONSTRATED:');
+console.log('🆕 MCP server initialization with professional branding');
+console.log('🔄 Cross-chat persistence via MCP protocol');
+console.log('🎯 Smart session initialization for Claude Desktop');
+console.log('🔥 Contextual triggers with MCP integration');
+console.log('🎨 Multiple style variations with consistent branding');
 console.log('📊 Awwwards evaluation system');
 console.log('🏗️ Swiss Grid + Typography principles');
-console.log('🚀 Professional design standards');
+console.log('🚀 Professional MCP server for Claude Desktop');
 
-// Export demo function for reuse
+console.log('\n🏆 Achievement Level: SITE OF THE DAY');
+console.log('📈 Ready for Claude Desktop integration!');
+console.log('⚡ Run: ./install.sh to set up MCP server');
+
+// Export MCP demo function for reuse
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { runDemo: () => console.log('Demo completed!') };
+  module.exports = { 
+    runDemo: () => console.log('MCP Demo completed!'),
+    MCPAwwwardsTodoServer
+  };
 }

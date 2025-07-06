@@ -261,17 +261,29 @@ class PersistentTodoManager extends AwwwardsTodoSystem {
     };
     
     // In real implementation, this would save to persistent storage
-    // For demo, we'll use a simulated storage
-    if (!window.persistentTodos) window.persistentTodos = {};
-    window.persistentTodos[sessionId] = session;
+    // For demo, we'll use simulated storage compatible with both browser and Node.js
+    if (typeof window !== 'undefined') {
+      if (!window.persistentTodos) window.persistentTodos = {};
+      window.persistentTodos[sessionId] = session;
+    } else {
+      // Node.js environment
+      if (!global.persistentTodos) global.persistentTodos = {};
+      global.persistentTodos[sessionId] = session;
+    }
     
     return session;
   }
   
   // Load all todo sessions
   loadAllTodoSessions() {
-    if (!window.persistentTodos) return {};
-    return window.persistentTodos;
+    if (typeof window !== 'undefined') {
+      if (!window.persistentTodos) return {};
+      return window.persistentTodos;
+    } else {
+      // Node.js environment  
+      if (!global.persistentTodos) return {};
+      return global.persistentTodos;
+    }
   }
   
   // Find incomplete todo sessions

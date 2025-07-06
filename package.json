@@ -2,10 +2,12 @@
   "name": "mcp-awwwards-todo-system",
   "version": "1.0.0",
   "description": "🏆 MCP server for Claude Desktop: Professional todo management applying Swiss Grid principles, Typography hierarchy, and Awwwards evaluation criteria with cross-chat persistence",
-  "main": "AwwwardsTodoSystem.js",
+  "main": "mcp-server.js",
   "scripts": {
+    "start": "node mcp-server.js",
+    "install-mcp": "./install.sh",
+    "test-server": "node mcp-server.js",
     "demo": "node demo.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "todo",

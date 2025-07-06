@@ -1,0 +1,55 @@
+{
+  "name": "mcp-awwwards-todo",
+  "description": "🏆 Professional todo management with Swiss Grid principles and Awwwards evaluation",
+  "version": "1.0.0",
+  "main": "mcp-server.js",
+  "mcp": {
+    "server": {
+      "name": "MCP Awwwards Todo System",
+      "version": "1.0.0",
+      "vendor": "Claude AI System for MCP",
+      "capabilities": [
+        "cross-chat-persistence",
+        "awwwards-evaluation", 
+        "contextual-triggers",
+        "swiss-grid-design",
+        "typography-hierarchy"
+      ],
+      "tools": [
+        {
+          "name": "create_todo_session",
+          "description": "Create a new todo session with professional evaluation"
+        },
+        {
+          "name": "display_todos",
+          "description": "Display todos with Awwwards evaluation and Swiss Grid design"
+        },
+        {
+          "name": "update_todo_status", 
+          "description": "Update todo status with contextual triggers"
+        },
+        {
+          "name": "switch_session",
+          "description": "Switch between persistent todo sessions"
+        },
+        {
+          "name": "evaluate_interface",
+          "description": "Get Awwwards-style evaluation of todo interface"
+        }
+      ]
+    }
+  },
+  "installation": {
+    "claude_desktop": {
+      "config_location": "~/Library/Application Support/Claude/claude_desktop_config.json",
+      "config_example": {
+        "mcpServers": {
+          "mcp-awwwards-todo": {
+            "command": "node",
+            "args": ["path/to/mcp-awwwards-todo-system/mcp-server.js"]
+          }
+        }
+      }
+    }
+  }
+}
